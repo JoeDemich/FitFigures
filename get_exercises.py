@@ -19,22 +19,16 @@ estimated_exercises = 15
 sample = 0
 while True:
     time.sleep(1)
-    #print("In loop...")
     locate = b.find_element_by_class_name("ExLoadMore")
     coords = locate.location
     sizes = locate.size
-    #print(coords)
-    #print(coords['x'])
-    #print("Scrolling")
     b.execute_script("arguments[0].scrollIntoView();", locate)
     try:
-        #print("Trying to click...")
         btn = b.find_element_by_class_name("ExLoadMore")
         time.sleep(1)
         actions.move_to_element_with_offset(btn, 76, 26)
         actions.click().perform()
         time.sleep(1)
-        #print("Successful click")
         estimated_exercises += 15
         print("Estimate: " + str(estimated_exercises) + " exercises collected.")
         sample += 1
@@ -47,7 +41,6 @@ time.sleep(1)
 
 page = requests.get(url)
 soup = BeautifulSoup(html, 'html.parser')
-# this gets the html prior to loading the new exercises, so only first 15
 
 exercise_name = []
 exercise_muscle = []
@@ -56,7 +49,6 @@ exercise_name_list = soup.find_all('h3', class_='ExHeading ExResult-resultsHeadi
 for exercise in exercise_name_list:
     if exercise.find('a'):
         original_exercise = exercise.find('a').text
-        #print(exercise.find('a')['href'])
         trimmed_exercise = original_exercise.strip()
         print(trimmed_exercise)
         exercise_name.append(str(trimmed_exercise))
@@ -65,7 +57,6 @@ exercise_muscle_list = soup.find_all('div', class_='ExResult-details ExResult-mu
 for muscle in exercise_muscle_list:
     if muscle.find('a'):
         original_muscle = muscle.find('a').text
-        #print(muscle.find('a')['href'])
         trimmed_muscle = original_muscle.strip()
         exercise_muscle.append(trimmed_muscle)
 
