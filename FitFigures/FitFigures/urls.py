@@ -15,7 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from FitFigures.views import hello_message
+from FitFigures.views import signIn
+from FitFigures.views import postsignIn
+from FitFigures.views import signUp
+from FitFigures.views import logout
+from FitFigures.views import postsignUp
+from FitFigures.views import reset
+from FitFigures.views import postReset
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hello/', hello_message),
+    path('', signIn),
+    path('postsignIn/', postsignIn),
+    path('signUp/', signUp, name="signup"),
+    path('logout/', logout, name="log"),
+    path('postsignUp/', postsignUp),
+    path('reset/', reset),
+    path('postReset/', postReset),
+
 ]
