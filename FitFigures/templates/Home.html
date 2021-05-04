@@ -2,20 +2,33 @@
 <style type="text/css">
 body {
 	background-color: #191718;
+	font-family: 'Poppins', sans-serif;
+}
+table {
+    table-layout: fixed;
 }
 </style>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<h1>
+	<button type="button" onclick="location.href='{% url 'log' %}' ">Logout</button>
+</h1>
+
  <!--Input-->
  <center>
- <p><a href="Home.html"><img src="file:///C|/Users/josep/Desktop/College/Senior/Senior Project/Logo.png" alt="" width="366" height="106" align="top"/></a></p>
+ <p onclick="location.href='{% url 'home' %}' "><img src="https://i.imgur.com/jW3Uzh1.png" alt="" width="366" height="106" align="top"/></p>
  <table width="80%" border="0" cellspacing="0">
    <tbody>
-     <tr bgcolor="#E0E5E9">>
-       <center><td height="37"><center>Home</center></td>
-         <td><u><a href="Profile.html"><center>Profile</center></a></u></td>
-         <td><center><u><a href="Input.html">Input</a></u></center></td>
-         <td><u><a href="Figures.html"><center>Figures</center></a></u></td>
-         <td><u><a href="Logs.html"><center>Logs</center></a></u></td>
-         <td><u><a href="Stats.html"><center>Stats</center></a></u></td>
+     <tr bgcolor="#0A62D0" >>
+       <center>
+         <td height="37" bgcolor="#F3D849"><center>Home</center></td>
+         <td onclick="location.href='{% url 'profile' %}' "><u><center>Profile</center></u></td>
+         <td onclick="location.href='{% url 'input' %}' "><u><center>Input</center></u></td>
+         <td onclick="location.href='{% url 'figures' %}' "><u><center>Figures</center></u></td>
+         <td onclick="location.href='{% url 'logs' %}' "><u><center>Logs</center></u></td>
+         <td onclick="location.href='{% url 'stats' %}' "><u><center>Stats</center></u></td>
        </center>
      </tr>
    </tbody>

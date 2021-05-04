@@ -1,0 +1,60 @@
+<html>
+<style type="text/css">
+body {
+	background-color: #191718;
+	font-family: 'Poppins', sans-serif;
+}
+table {
+    table-layout: fixed;
+}
+form {	
+	color: #E0E5E9;
+}
+</style>
+
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+
+<h1>
+	<button type="button" onclick="location.href='{% url 'log' %}' ">Logout</button>
+</h1>
+
+ <!--Input-->
+ <center>
+ <p onclick="location.href='{% url 'home' %}' "><img src="https://i.imgur.com/jW3Uzh1.png" alt="" width="366" height="106" align="top"/></p>
+ <table width="80%" border="0" cellspacing="0">
+   <tbody>
+     <tr bgcolor="#0A62D0">>
+       <center>
+           <td height="37" onclick="location.href='{% url 'home' %}' "><u><center>Home</center></u></td>
+         <td onclick="location.href='{% url 'profile' %}' "><u><center>Profile</center></u></td>
+         <td onclick="location.href='{% url 'input' %}' " bgcolor="#F3D849"><center>Input</center></td>
+         <td onclick="location.href='{% url 'figures' %}' "><u><center>Figures</center></u></td>
+         <td onclick="location.href='{% url 'logs' %}' "><u><center>Logs</center></u></td>
+         <td onclick="location.href='{% url 'stats' %}' "><u><center>Stats</center></u></td>
+       </center>
+     </tr>
+   </tbody>
+ </table>
+ <p>&nbsp;</p>
+	 
+	 
+<form action="{% url 'complete' %}" method="POST" color=#E0E5E9">
+	{% csrf_token %}
+	{% for form in formset %}
+	   {{ form }}
+	   <br>			
+	   <br>															  
+    {% endfor %}
+			
+    <br>																  
+	
+	<input type="submit" onclick="location.href='{% url 'complete' %}' " value="Submit"><br><br>
+	
+</form>
+
+	 
+ </center>
+ </html>

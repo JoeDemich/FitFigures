@@ -15,24 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from FitFigures.views import hello_message
-from FitFigures.views import signIn
-from FitFigures.views import postsignIn
-from FitFigures.views import signUp
-from FitFigures.views import logout
-from FitFigures.views import postsignUp
-from FitFigures.views import reset
-from FitFigures.views import postReset
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', hello_message),
-    path('', signIn),
-    path('postsignIn/', postsignIn),
-    path('signUp/', signUp, name="signup"),
-    path('logout/', logout, name="log"),
-    path('postsignUp/', postsignUp),
-    path('reset/', reset),
-    path('postReset/', postReset),
+    path('', views.signIn),
+    path('postsignIn/', views.postsignIn),
+    path('signUp/', views.signUp, name="signup"),
+    path('logout/', views.logout, name="log"),
+    path('postsignUp/', views.postsignUp),
+    path('reset/', views.reset),
+    path('postReset/', views.postReset),
+    #path('Login', Login, name = "Login"),
+    path('Home', views.Home, name='home'),
+    path('Profile', views.Profile, name='profile'),
+    path('Input', views.Input, name='input'),
+    path('Figures', views.Figures, name='figures'),
+    path('Logs', views.Logs, name='logs'),
+    path('Stats', views.Stats, name='stats'),
+    path('AccountDetails/', views.AccountDetails, name='accountdetails'),
+    path('Input/Cardio', views.Cardio, name='cardio'),
+    path('Input/Strength', views.Strength, name='strength'),
+    path('Input/ChangeWeight', views.ChangeWeight, name='weight'),
+    path('Input/EntryComplete', views.EntryComplete, name='complete'),
+    path('Input/EnterStrength', views.enterStrengthWorkout, name='strength'),
+    path('Input/EnterCardio', views.enterCardioWorkout, name='cardio'),
+    path('Input/EnterWeight', views.enterWeight, name='weight'),
+    path('Register/AccountDetails', views.getUserInfo, name='accountdetails'),
+    #path('', views.),
+
 
 ]
