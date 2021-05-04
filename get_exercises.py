@@ -8,7 +8,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 b = webdriver.Chrome(executable_path='C:\Selenium Drivers\chromedriver_win32\chromedriver.exe')
 
-url = "https://www.bodybuilding.com/exercises/finder/?muscle=chest,forearms,lats,middle-back,lower-back,neck,quadriceps,hamstrings,calves,triceps,traps,shoulders,abdominals,glutes,biceps,adductors,abductors"
+#url = "https://www.bodybuilding.com/exercises/finder/?muscle=chest,forearms,lats,middle-back,lower-back,neck,quadriceps,hamstrings,calves,triceps,traps,shoulders,abdominals,glutes,biceps,adductors,abductors"
+url = "https://www.bodybuilding.com/exercises/finder/"
 b.get(url)
 b.maximize_window()
 actions = ActionChains(b)
@@ -62,9 +63,9 @@ for muscle in exercise_muscle_list:
 
 loaded_name_list = soup.find_all('div', class_='ExResult-details ExResult-muscleTargeted')
 
-both_txt = open("Exercises with muscles.txt", "w+")
-exercise_txt = open("Exercises.txt", "w+")
-muscle_txt = open("Muscles.txt", "w+")
+both_txt = open("Exercises with muscles NEW 2.txt", "w+")
+exercise_txt = open("Exercises NEW 2.txt", "w+")
+muscle_txt = open("Muscles NEW 2.txt", "w+")
 
 list_size = len(exercise_muscle)
 counter = 0

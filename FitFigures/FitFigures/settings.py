@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'FitFigures',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,8 +78,13 @@ WSGI_APPLICATION = 'FitFigures.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pawjpuke',
+        'USER': 'pawjpuke',
+        'PASSWORD': 'HdV9eqBpR_Ds7UVsgKuCElfhAtPna4c6',
+        'HOST': 'queenie.db.elephantsql.com',
+        'PORT': '5432'
+
     }
 }
 
@@ -114,8 +121,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATICFILES_DIR = {
+   # os.path.join(BASE_DIR, ""),
+  #  os.path.join(BASE_DIR, 'static'),
+ #   os.path.join(BASE_DIR, "FitFigures/static"),
+#}
+
+STATICFILES_DIR = (str(BASE_DIR.joinpath('static')))
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+
+
