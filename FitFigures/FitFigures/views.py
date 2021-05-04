@@ -4,6 +4,7 @@ from django.forms import inlineformset_factory, modelformset_factory, formset_fa
 import pyrebase
 from .models import WorkoutDetails
 from .forms import *
+import random
 
 config = {
     "apiKey": "AIzaSyCN1Bh-NxLYGllp-w51nqTMSsml6WiSFpU",
@@ -87,7 +88,23 @@ def postReset(request):
 
 
 def Home(request):
-    return render(request, "Home.html")
+    Quotes = [
+        "\"Strength does not come from the physical capacity. It comes from an indomitable will.\" – Mahatma Gandhi",\
+        "\"Energy & persistence conquer all things.\" – Benjamin Franklin",
+        "\"No matter how slow you go, you’re still lapping everybody on the couch.\"   —​Elite Daily",
+        "\"It always seems impossible until it’s done.\" —​Nelson Mandela",
+        "\"If it doesn’t challenge you it doesn’t change you!\" – Fred Devito",
+        "\"We are what we repeatedly do. Excellence then is not an act but a habit.\" —Aristotle",
+        "\"The difference between try and triumph is a little umph.\" – Marvin Phillips",
+        "\"Motivation is what gets you started. Habit is what keeps you going.\" – Jim Ryin"
+        "\"No pain, no gain.\" – Benjamin Franklin",
+        "\"Don’t count the days, make the days count.\" —Muhammad Ali",
+        "\"A year from now you may wish you had started today.\" – Karen Lamb",
+        "\"A healthy body owns a healthy mind.\" – Amit Kalantri"
+    ]
+    rand = random.randint(0, len(Quotes)-1)
+    context = {'quote': Quotes[rand]}
+    return render(request, "Home.html", context)
 
 
 def Profile(request):
@@ -232,22 +249,6 @@ def getUserInfo(request):
     UserSelStatsForm.Longest_Rest_Streak = request.POST.get("longest_rest_streak")
     UserSelStatsForm.Total_Weight_Change = request.POST.get("total_weight_change")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     if UserDetForm.is_valid() and UserIntForm.is_valid() and UserSelStatsForm.is_valid():
         UserDetForm.save()
         UserIntForm.save()
@@ -260,6 +261,21 @@ def getUserInfo(request):
     }
 
     return render(request, 'Home.html', context)
+
+# ADD TO HTML DOC WHEN INPUT IS COMPLETE
+def getWorkoutLogs(request):
+    all_workouts = WorkoutDetails.object.all()
+    current_uid = request.session['uid']
+    current_user_workouts = []
+
+    # Populate list with only the current user's workouts.
+    for workout in all_workouts:
+        if all_workouts[workout].UID == current_uid:
+            current_user_workouts.append(all_workouts[workout])
+
+    context = {'workouts': current_user_workouts}
+    return render(request, 'Logs.html', context)
+
 
 
 

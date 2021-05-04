@@ -42,6 +42,8 @@ urlpatterns = [
     path('Input/EnterCardio', views.enterCardioWorkout, name='cardio'),
     path('Input/EnterWeight', views.enterWeight, name='weight'),
     path('Register/AccountDetails', views.getUserInfo, name='accountdetails'),
+    path('Logs', views.getWorkoutLogs, name='logs'),
+    # Add path for Logs/workout_date
     #path('', views.),
 
 
