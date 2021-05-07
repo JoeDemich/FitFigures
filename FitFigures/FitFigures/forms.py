@@ -9,6 +9,11 @@ from .models import *
   #  feet = forms.IntegerField(label = 'user_feet', max_value = 7, min_value = 3)
    # inches = forms.IntegerField(label = 'user_inches', max_value = 11, min_value = 0)
 
+class CreateUserForm(ModelForm):
+    class Meta:
+        model = Users
+        fields = ('UID', 'Username')
+
 class StrengthForm(ModelForm):
     class Meta:
         model = WorkoutDetails

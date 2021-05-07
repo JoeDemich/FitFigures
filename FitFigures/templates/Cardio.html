@@ -7,7 +7,10 @@ body {
 table {
     table-layout: fixed;
 }
-form {	
+form {
+	color: #E0E5E9;
+}
+h2 {
 	color: #E0E5E9;
 }
 </style>
@@ -29,7 +32,6 @@ form {
      <tr bgcolor="#0A62D0">>
        <center>
            <td height="37" onclick="location.href='{% url 'home' %}' "><u><center>Home</center></u></td>
-         <td onclick="location.href='{% url 'profile' %}' "><u><center>Profile</center></u></td>
          <td onclick="location.href='{% url 'input' %}' " bgcolor="#F3D849"><center>Input</center></td>
          <td onclick="location.href='{% url 'figures' %}' "><u><center>Figures</center></u></td>
          <td onclick="location.href='{% url 'logs' %}' "><u><center>Logs</center></u></td>
@@ -38,11 +40,20 @@ form {
      </tr>
    </tbody>
  </table>
- <p>&nbsp;</p>
-	 
-	 
-<form action="{% url 'complete' %}" method="POST" color=#E0E5E9">
+
+<table width="80%" border="0" cellspacing="0">
+    <tbody>
+        <center>
+            <td><h2><center>Date Format: YYYY-MM-DD</center></h2></td>>
+            <td><h2><center>Time Format: HH:MM:SS</center></h2></td>
+        </center>
+    </tbody>
+</table>
+
+
+<form action="/enterCardioWorkout/" method="POST" color=#E0E5E9">
 	{% csrf_token %}
+    {{ formset.management_form }}
 	{% for form in formset %}
 	   {{ form }}
 	   <br>			
