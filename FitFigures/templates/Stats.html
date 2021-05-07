@@ -43,20 +43,20 @@ h2 {
  <table width="70%" border="0" cellspacing="8">
      <tbody>
         <tr>
-            <td><h2>Current Weight: {{ currentWeight }} lbs</h2></td>
-            <td><h2>Total Weight Change:  {{ weightChange }} lbs</h2></td>
+            <td><h2>Current Weight: {% if currentWeight %} {{ currentWeight }} {% else %} N/A {% endif %} lbs</h2></td>
+            <td><h2>Total Weight Change: {% if weightChange %} {{ weightChange }} lbs {% else %} N/A {% endif %}</h2></td>
         </tr>
         <tr>
-            <td><h2>Total Weight Used:  lbs</h2></td>
-            <td><h2>Number of Workouts: {{ numberofworkouts }} </h2></td>
+            <td><h2>Total Weight Used: {% if totalWeight %} {{ totalWeight }} lbs {% else %} N/A {% endif %}</h2></td>
+            <td><h2>Number of Workouts: {% if numberofworkouts %} {{ numberofworkouts }} {% else %} N/A {% endif %}</h2></td>
         </tr>
         <tr>
-            <td><h2>Total Cardio Distance:  miles</h2></td>
-            <td><h2>Total Cardio Time: </h2></td>
+            <td><h2>Total Cardio Distance: {% if totalDistance %} {{ totalDistance }} miles {% else %} N/A {% endif %}</h2></td>
+            <td><h2>Total Cardio Time: {% if totalTime %} {{ totalTime }} {% else %} N/A {% endif %}</h2></td>
         </tr>
         <tr>
-            <td><h2>Longest Workout Streak: {{ longestConsecutive }} days</h2></td>
-            <td><h2>Longest Rest Streak: {{ longestMissed }} days</h2></td>
+            <td><h2>Longest Workout Streak: {% if longestConsecutive %} {{ longestConsecutive }} days {% else %} N/A {% endif %}</h2></td>
+            <td><h2>Longest Rest Streak: {% if longestMissed %} {{ longestMissed }} days {% else %} N/A {% endif %}</h2></td>
         </tr>
      </tbody>
  </center>

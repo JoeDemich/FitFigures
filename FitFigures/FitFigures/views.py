@@ -249,14 +249,18 @@ def viewDates(request):
 def viewWorkouts(request, workout_date):
     userUID = authe.current_user['localId']
     print("Date: " + workout_date)
-    userWorkouts = WorkoutDetails.objects.filter(UID=userUID,Date=workout_date)#.order_by('Exercise')#.order_by('Set').order_by('Interval')
+    userWorkouts = WorkoutDetails.objects.filter(UID=userUID,Date=workout_date).order_by('Exercise', 'Set', 'Interval')#.order_by('Set').order_by('Interval')
     all_details = []
    # print(userWorkouts)
 
     print("These should show up")
     print(userWorkouts)
     for workout in userWorkouts:
-        print(workout.Exercise)
+        #print(workout.Exercise)
+        if workout.Time != None:
+            workout.Time = str(workout.Time)
+        print()
+
         """ 
         all_details.append({
             'Maybe': "Maybe",
@@ -303,54 +307,64 @@ def viewStats(request):
     numberofworkouts = len(dates)
 
     # Workout and Rest Streaks
-    #userWorkouts = WorkoutDetails.objects.filter(UID=userUID).values('Date')
-    #streakDates = []
-    #for workout in userWorkouts:
-       # if str(workout['Date']) not in dates:
-        #    dates.append(workout['Date'])
-         #   print(type(workout['Date']))
-          #  print(workout['Date'])
     count = 0
     currentConsecutive = datetime.timedelta(1)
     longestConsecutive = datetime.timedelta(0)
     currentMissed = datetime.timedelta(0)
     longestMissed = datetime.timedelta(0)
-    #prevDate = 0
     for Date in streakDates:
         print("Count: " + str(count))
         if count != 0:
-            # print(date-prevDate)
-           # if (Date['Date'] - prevDate['Date']) == datetime.timedelta(1):
             if Date - prevDate == datetime.timedelta(1):
-                # print("One day")
                 currentConsecutive = currentConsecutive + datetime.timedelta(1)
                 if currentConsecutive > longestConsecutive:
                     longestConsecutive = currentConsecutive
                     print(longestConsecutive)
             else:
-                #currentMissed = (Date['Date'] - prevDate['Date'])
                 currentMissed = (Date - prevDate)
 
-                if currentMissed > longestMissed:
+                if currentMissed > longestMissed and currentMissed != -1:
                     longestMissed = currentMissed
-                    print(longestMissed)
-        if count == len(dates):# - 1:
+                    longestMissed = longestMissed - datetime.timedelta(days=1)
+                    print("Rest Test: " + str(longestMissed.days))
+        if count == len(dates):
             today = date.today()
-            #if (today - Date['Date']) > longestMissed:
             if (today - Date) > longestMissed:
-                #longestMissed = today - Date['Date']
                 longestMissed = today - Date
 
                 print(longestMissed)
-
         prevDate = Date
-        # print(prevDate)
         count = count + 1
 
+    # Total Cardio Time and Distance
+    cardioWorkouts = WorkoutDetails.objects.filter(UID=userUID).values('Time', 'Distance')
+    totalDistance = 0.0
+    totalTime = datetime.timedelta(0)
+    print(cardioWorkouts)
+    for workout in cardioWorkouts:
+        if workout['Time'] != None:
+            print(workout['Time'])
+            time = str(workout['Time'])
+            hour = int(time[:2])
+            min = int(time[3:5])
+            sec = int(time[6:8])
+            totalTime = totalTime + datetime.timedelta(seconds=sec, minutes=min, hours=hour)
+        if workout['Distance'] != None:
+            totalDistance = totalDistance + float(workout['Distance'])
+
+    # Total Weight Used
+    strengthWorkouts = WorkoutDetails.objects.filter(UID=userUID).values('Reps', 'Weight')
+    totalWeight = 0
+    for workout in strengthWorkouts:
+        if workout['Weight'] != None:
+            totalWeight = totalWeight + (workout['Weight'] * workout['Reps'])
 
     context = {'weightChange': weightChange,
                'currentWeight': currentWeight,
                'numberofworkouts': numberofworkouts,
                'longestConsecutive': longestConsecutive.days,
-               'longestMissed': longestMissed.days}
+               'longestMissed': longestMissed.days,
+               'totalDistance': totalDistance,
+               'totalWeight': totalWeight,
+               'totalTime': totalTime}
     return render(request, "Stats.html", context)
