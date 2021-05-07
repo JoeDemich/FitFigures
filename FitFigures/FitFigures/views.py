@@ -237,7 +237,7 @@ def viewWeights(request):
 
 def viewDates(request):
     userUID = authe.current_user['localId']
-    userWorkouts = WorkoutDetails.objects.filter(UID=userUID).values('Date').order_by('-Date')
+    userWorkouts = WorkoutDetails.objects.filter(UID=userUID).values('Date').order_by('Date')
     dates = []
     for workout in userWorkouts:
         if str(workout['Date']) not in dates:
@@ -249,13 +249,15 @@ def viewDates(request):
 def viewWorkouts(request, workout_date):
     userUID = authe.current_user['localId']
     print("Date: " + workout_date)
-    #userWorkouts = WorkoutDetails.objects.filter(UID=userUID).filter(Date=workout_date)#.order_by('Exercise')#.order_by('Set').order_by('Interval')
+    userWorkouts = WorkoutDetails.objects.filter(UID=userUID,Date=workout_date)#.order_by('Exercise')#.order_by('Set').order_by('Interval')
     all_details = []
    # print(userWorkouts)
-    """ 
+
+    print("These should show up")
+    print(userWorkouts)
     for workout in userWorkouts:
         print(workout.Exercise)
-        
+        """ 
         all_details.append({
             'Maybe': "Maybe",
             'Exercise': str(workout.Exercise),
@@ -269,10 +271,10 @@ def viewWorkouts(request, workout_date):
         all_details.append(workout)
         """
     #print(all_details)
-    test = ['why', 'does', 'this', 'not', 'work']
-    context = {#'userWorkouts:': all_details,
-               'date': str(workout_date)}
-    return render(request, "Workouts.html", context)
+    return render(request, "Workouts.html", {
+       'date': str(workout_date),
+       'userWorkouts': userWorkouts
+    })
 
 def viewStats(request):
     userUID = authe.current_user['localId']
