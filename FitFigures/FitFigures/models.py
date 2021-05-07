@@ -1,24 +1,32 @@
 from django.db import models
 from django.utils import timezone
 
+
 class Users(models.Model):
     UID = models.CharField(max_length=1028)
+    Username = models.CharField(max_length=32)
 
     def __str__(self):
-        return self.UID.name
+        return self.Username
 
 class Weights(models.Model):
     UID = models.CharField(max_length=1028)
-    Date = models.DateTimeField(default=timezone.now)
-    Weight = models.IntegerField()
+    Date = models.DateField(blank=True)
+    Weight = models.IntegerField(blank=True)
+
+    def __str__(self):
+        return self.UID[:5] + " Weights"
 
 class UserDetails(models.Model):
     UID = models.CharField(max_length=1028)
-    Name = models.CharField(max_length=32)
-    DOB = models.DateField()
-    Weight = models.IntegerField()
-    Feet = models.IntegerField()
-    Inches = models.IntegerField()
+    Name = models.CharField(max_length=32, blank=True)
+    DOB = models.DateField(blank=True)
+    Weight = models.IntegerField(blank=True)
+    Feet = models.IntegerField(blank=True)
+    Inches = models.IntegerField(blank=True)
+
+    def __str__(self):
+        return self.UID[:5] + " User Details"
 
 class SelectedStats(models.Model):
     UID = models.CharField(max_length=1028)
@@ -39,6 +47,9 @@ class SelectedStats(models.Model):
     Longest_Rest_Streak = models.BooleanField()
     Total_Weight_Change = models.BooleanField()
 
+    def __str__(self):
+        return self.UID[:5] + " Selected Stats"
+
 class Stats(models.Model):
     UID = models.CharField(max_length=1028)
     Max_Bench_Press = models.IntegerField()
@@ -58,6 +69,9 @@ class Stats(models.Model):
     Longest_Rest_Streak = models.IntegerField()
     Total_Weight_Change = models.DecimalField(decimal_places=2, max_digits=5)
 
+    def __str__(self):
+        return self.UID[:5] + " Stats"
+
 class Interests(models.Model):
     UID = models.CharField(max_length=1028)
     General_Fitness = models.BooleanField()
@@ -69,26 +83,35 @@ class Interests(models.Model):
     Bodybuilding = models.BooleanField()
     Martial_Arts = models.BooleanField()
 
+    def __str__(self):
+        return self.UID[:5] + " Interests"
+
 
 class WorkoutDetails(models.Model):
     UID = models.CharField(max_length=1028)
-    Date = models.DateTimeField(default=timezone.now)
+    Date = models.DateField()
     Exercise = models.CharField(max_length=67)
-    Set = models.IntegerField()
-    Interval = models.IntegerField()
-    Reps = models.IntegerField()
-    Weight = models.IntegerField()
-    Distance = models.DecimalField(decimal_places=2, max_digits=5)
-    Time = models.TimeField()
+    Set = models.IntegerField(blank=True)
+    Interval = models.IntegerField(blank=True)
+    Reps = models.IntegerField(blank=True)
+    Weight = models.IntegerField(blank=True)
+    Distance = models.DecimalField(decimal_places=2, max_digits=5, blank=True)
+    Time = models.TimeField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.Exercise
+        return self.UID[:5] + ": " + self.Exercise
 
 
 class Workouts(models.Model):
     UID = models.CharField(max_length=1028)
     Date = models.DateField()
-    Workout = models.ForeignKey(WorkoutDetails, on_delete=models.CASCADE)
+   # Workout = models.ForeignKey(WorkoutDetails, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.UID[:5] + " Workout"
 
 class ExercisesList(models.Model):
     Name = models.CharField(max_length=67)

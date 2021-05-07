@@ -16,7 +16,7 @@ body,td,th {
  <center>
  <p><img src="https://i.imgur.com/jW3Uzh1.png" alt="" width="366" height="106" align="top"/></p>
 
-<form action="/getAccountDetails/" method="post"> <!--# was postSignUp-->
+<form action="/getUserInfo/" method="post"> <!--# was postSignUp-->
 	{% csrf_token %}
 	<br/>
 	<h1>Account Details</h1>
@@ -45,10 +45,10 @@ body,td,th {
       <td width="50%">&nbsp;</td>
     </tr>
     <tr>
-      <td width="50%" align=center>Birthday</td>
+      <td width="50%" align=center>Birthday (YYYY-MM-DD)</td>
     </tr>
     <tr align=center>
-      <td><input type="date" id="birthday" name="birthday"></td>
+        <td><input type="text" name="birthday"{{ UserDetForm.DOB }}></td><!--<td><input type="date"  >id="birthday" name="birthday" value="{{ UserDetForm.Date }}"> </td><--->
     </tr>
     <tr>
       <td align=center>&nbsp;</td>
@@ -59,7 +59,7 @@ body,td,th {
     <tr>
       <td align=center>
 		   <label for="user_feet">
- <form id="dropdowndemo">
+ <!--<form id="dropdowndemo"<-->
 		  <select name="Feet" id="Feet">
                   <option>3</option>
                   <option>4</option>
@@ -68,7 +68,7 @@ body,td,th {
                   <option>7</option>
           </select>
 		  <label for="user_inches">
-                <form id="dropdowndemo">
+                <!--<form id="dropdowndemo"><-->
 		  <select name="user_inches" id="user_inches">
                   <option>0</option>
                   <option>1</option>
@@ -104,7 +104,7 @@ body,td,th {
 <table width="40%" height="303" border="0" style="float: left;">
   <tbody>
     <tr align=center>
-      <td height="10%" colspan="2"><h3 style ="color:#F3D849;">Select Fitness Interests (up to 3)</h3></td>
+      <td height="10%" colspan="2"><h3 style ="color:#F3D849;">Select Fitness Interests</h3></td>
     </tr>
     <tr>
       <td width="25%">
@@ -148,7 +148,7 @@ body,td,th {
     </tr>
     <tr align=center>
       <td colspan="2"><h3 style="color:#F3D849;">&nbsp;</h3>
-      <h3 style="color:#F3D849;">Select Notable Stats (up to 8)</h3></td>
+      <h3 style="color:#F3D849;">Select Notable Stats</h3></td>
     </tr>
     <tr>
       <td>

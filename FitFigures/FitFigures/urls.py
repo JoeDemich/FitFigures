@@ -32,19 +32,27 @@ urlpatterns = [
     path('Input', views.Input, name='input'),
     path('Figures', views.Figures, name='figures'),
     path('Logs', views.Logs, name='logs'),
+    path('Logs/Weight', views.WeightLogs),
+    path('Logs/Workouts', views.WorkoutLogs, name='workoutlog'), # workoutlog need to be on
+    path('viewWeights', views.viewWeights, name='weightlog'),
+    path('viewDates', views.viewDates, name='workoutlog'),
+    path('Workouts', views.Workouts, name='workouts'),
+    #path('Logs/Workouts/<str:workout_date>', views.viewWorkouts, name='workouts'),
+    path('Workouts/<str:workout_date>', views.viewWorkouts, name='workouts'), # BIG ERROR HERE
+    path('viewWorkouts', views.viewWorkouts, name='workouts'),
     path('Stats', views.Stats, name='stats'),
-    path('AccountDetails/', views.AccountDetails, name='accountdetails'),
+    path('viewStats', views.viewStats, name='stats'),
     path('Input/Cardio', views.Cardio, name='cardio'),
     path('Input/Strength', views.Strength, name='strength'),
     path('Input/ChangeWeight', views.ChangeWeight, name='weight'),
     path('Input/EntryComplete', views.EntryComplete, name='complete'),
     path('Input/EnterStrength', views.enterStrengthWorkout, name='strength'),
+    path('enterStrengthWorkout/', views.enterStrengthWorkout),
+    path('enterCardioWorkout/', views.enterCardioWorkout),
+    path('enterWeight/', views.enterWeight),
     path('Input/EnterCardio', views.enterCardioWorkout, name='cardio'),
     path('Input/EnterWeight', views.enterWeight, name='weight'),
-    path('Register/AccountDetails', views.getUserInfo, name='accountdetails'),
-    path('Logs', views.getWorkoutLogs, name='logs'),
+
     # Add path for Logs/workout_date
-    #path('', views.),
-
-
+    #path('Figures/Generate', views.generateFigures, name='figures')
 ]

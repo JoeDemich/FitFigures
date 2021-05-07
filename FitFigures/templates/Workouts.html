@@ -1,0 +1,81 @@
+<html>
+<style type="text/css">
+body {
+	background-color: #191718;
+	font-family: 'Poppins', sans-serif;
+}
+table {
+    table-layout: fixed;
+}
+h1 {
+	color: #E0E5E9;
+}
+h2 {
+	color: #E0E5E9;
+}
+p {
+	color: #E0E5E9;
+}
+</style>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<h1>
+	<button type="button" onclick="location.href='{% url 'log' %}' ">Logout</button>
+</h1>
+
+ <!--Input-->
+ <center>
+ <p onclick="location.href='{% url 'home' %}' "><img src="https://i.imgur.com/jW3Uzh1.png" alt="" width="366" height="106" align="top"/></p>
+ <table width="80%" border="0" cellspacing="0">
+   <tbody>
+     <tr bgcolor="#0A62D0">
+       <center>
+           <td height="37" onclick="location.href='{% url 'home' %}' "><u><center>Home</center></u></td>
+         <td onclick="location.href='{% url 'input' %}' "><u><center>Input</center></u></td>
+         <td onclick="location.href='{% url 'figures' %}' "><u><center>Figures</center></u></td>
+         <td bgcolor="#F3D849" onclick="location.href='{% url 'logs' %}' "><center>Logs</center></td>
+         <td onclick="location.href='{% url 'stats' %}' "><u><center>Stats</center></u></td>
+       </center>
+     </tr>
+   </tbody>
+ </table>
+
+<br>
+<center>
+    <h1>Workout from {{ date }}</h1>
+<table width="50%" height="85">
+  <tbody>
+    <tr>
+      <center>
+          <td width="186"><center><h2 style="color: #F3D849">Exercise</h2></center></td>
+          <td width="186"><center><h2 style="color: #F3D849">Set</h2></center></u></td>
+          <td width="186"><center><h2 style="color: #F3D849">Reps</h2></center></td>
+          <td width="186"><center><h2 style="color: #F3D849">Weight (lbs)</h2></center></u></td>
+          <td width="186"><center><h2 style="color: #F3D849">Interval</h2></center></td>
+          <td width="186"><center><h2 style="color: #F3D849">Time</h2></center></u></td>
+          <td width="186"><center><h2 style="color: #F3D849">Distance</h2></center></td>
+      </center>
+    </tr>
+
+
+    {% for w in userWorkouts %}
+        <tr>
+            <center>
+                <td width="186"><center><p> {{ w.Exercise }} : </p></center></td>
+                <td width="186"><center><p> {{ w.Set }} </p></center></td>
+                <td width="186"><center><p> {{ w.Reps}} </p></center></td>
+                <td width="186"><center><p> {{ w.Weight }} </p></center></td>
+                <td width="186"><center><p> {{ w.Interval}} </p></center></td>
+                <td width="186"><center><p> {{ w.Time }} </p></center></td>
+                <td width="186"><center><p> {{ w.Distance }} </p></center></td>
+            </center>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</center>
+
+ </center>
+ </html>

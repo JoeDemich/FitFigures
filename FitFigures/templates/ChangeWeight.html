@@ -10,6 +10,9 @@ table {
 h1 {
 	color: #E0E5E9;
 }
+h2 {
+	color: #E0E5E9;
+}
 form {	
 	color: #E0E5E9;
 }
@@ -32,7 +35,6 @@ form {
      <tr bgcolor="#0A62D0">>
        <center>
            <td height="37" onclick="location.href='{% url 'home' %}' "><u><center>Home</center></u></td>
-         <td onclick="location.href='{% url 'profile' %}' "><u><center>Profile</center></u></td>
          <td onclick="location.href='{% url 'input' %}' " bgcolor="#F3D849"><center>Input</center></td>
          <td onclick="location.href='{% url 'figures' %}' "><u><center>Figures</center></u></td>
          <td onclick="location.href='{% url 'logs' %}' "><u><center>Logs</center></u></td>
@@ -41,14 +43,19 @@ form {
      </tr>
    </tbody>
  </table>
+
  <p>&nbsp;</p>
+  <h2>Date Format: YYYY-MM-DD</h2>
  <p>&nbsp;</p>
-<form action="{% url "weight" %}" method="post">
+
+
+<form action="/enterWeight/" method="post">
 	{% csrf_token %}
 	{{ form }}
 
 			
-    <br>																  
+    <br>
+	<br>
 	
 	<input type="submit" onclick="location.href='{% url 'complete' %}' " value="Submit"><br><br>
 
