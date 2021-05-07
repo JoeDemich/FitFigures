@@ -52,7 +52,7 @@ p {
           <td width="186"><center><h2 style="color: #F3D849">Exercise</h2></center></td>
           <td width="186"><center><h2 style="color: #F3D849">Set</h2></center></u></td>
           <td width="186"><center><h2 style="color: #F3D849">Reps</h2></center></td>
-          <td width="186"><center><h2 style="color: #F3D849">Weight (lbs)</h2></center></u></td>
+          <td width="186"><center><h2 style="color: #F3D849">Weight</h2></center></u></td>
           <td width="186"><center><h2 style="color: #F3D849">Interval</h2></center></td>
           <td width="186"><center><h2 style="color: #F3D849">Time</h2></center></u></td>
           <td width="186"><center><h2 style="color: #F3D849">Distance</h2></center></td>
@@ -63,12 +63,12 @@ p {
         <tr>
             <center>
                 <td width="186"><center><p> {{ w.Exercise }} : </p></center></td>
-                <td width="186"><center><p> {{ w.Set }} </p></center></td>
-                <td width="186"><center><p> {{ w.Reps}} </p></center></td>
-                <td width="186"><center><p> {{ w.Weight }} </p></center></td>
-                <td width="186"><center><p> {{ w.Interval}} </p></center></td>
-                <td width="186"><center><p> {{ w.Time }} </p></center></td>
-                <td width="186"><center><p> {{ w.Distance }} </p></center></td>
+                <td width="186"><center><p> {% if w.Set %} {{ w.Set }} {% else %} N/A {% endif %}</p></center></td>
+                <td width="186"><center><p> {% if w.Reps %} {{ w.Reps}} {% else %} N/A {% endif %}</p></center></td>
+                <td width="186"><center><p> {% if w.Weight %} {{ w.Weight }} lbs {% else %} N/A {% endif %}</p></center></td>
+                <td width="186"><center><p> {% if w.Interval %} {{ w.Interval}} {% else %} N/A {% endif %}</p></center></td>
+                <td width="186"><center><p> {% if w.Time %} {{ w.Time }} {% else %} N/A {% endif %} </p></center></td>
+                <td width="186"><center><p> {% if w.Distance %} {{ w.Distance }} miles  {% else %} N/A {% endif %} </p></center></td>
             </center>
         </tr>
     {% endfor %}
