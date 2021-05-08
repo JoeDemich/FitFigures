@@ -26,19 +26,17 @@ urlpatterns = [
     path('postsignUp/', views.postsignUp),
     path('reset/', views.reset),
     path('postReset/', views.postReset),
-    #path('Login', Login, name = "Login"),
     path('Home', views.Home, name='home'),
     path('Profile', views.Profile, name='profile'),
     path('Input', views.Input, name='input'),
     path('Figures', views.Figures, name='figures'),
     path('Logs', views.Logs, name='logs'),
     path('Logs/Weight', views.WeightLogs),
-    path('Logs/Workouts', views.WorkoutLogs, name='workoutlog'), # workoutlog need to be on
+    path('Logs/Workouts', views.WorkoutLogs, name='workoutlog'),
     path('viewWeights', views.viewWeights, name='weightlog'),
     path('viewDates', views.viewDates, name='workoutlog'),
     path('Workouts', views.Workouts, name='workouts'),
-    #path('Logs/Workouts/<str:workout_date>', views.viewWorkouts, name='workouts'),
-    path('Workouts/<str:workout_date>', views.viewWorkouts, name='workouts'), # BIG ERROR HERE
+    path('Workouts/<str:workout_date>', views.viewWorkouts, name='workouts'),
     path('viewWorkouts', views.viewWorkouts, name='workouts'),
     path('Stats', views.Stats, name='stats'),
     path('viewStats', views.viewStats, name='stats'),
@@ -52,7 +50,10 @@ urlpatterns = [
     path('enterWeight/', views.enterWeight),
     path('Input/EnterCardio', views.enterCardioWorkout, name='cardio'),
     path('Input/EnterWeight', views.enterWeight, name='weight'),
-
-    # Add path for Logs/workout_date
-    #path('Figures/Generate', views.generateFigures, name='figures')
+    path('ChooseExercises', views.ChooseExercise, name='chooseexercise'),
+    path('viewExercises', views.viewExercises, name='chooseexercise'),
+    path('Graph', views.Graph, name='graph'),
+    path('Graph/<str:name>', views.exerciseGraph, name='graph'),
+    path('Graph/Weight', views.WeightGraph, name='weightgraph'),
+    path('viewWeightGraph', views.viewWeightGraph, name='weightgraph'),
 ]

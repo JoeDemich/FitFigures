@@ -1,4 +1,5 @@
 <html>
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 <style type="text/css">
 body {
 	background-color: #191718;
@@ -7,13 +8,17 @@ body {
 table {
     table-layout: fixed;
 }
+h1 {
+	color: #E0E5E9;
+}
+h2 {
+	color: #E0E5E9;
+}
 </style>
-
 <head>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
-
 <h1>
 	<button type="button" onclick="location.href='{% url 'log' %}' ">Logout</button>
 </h1>
@@ -25,16 +30,25 @@ table {
    <tbody>
      <tr bgcolor="#0A62D0">>
        <center>
-           <td height="37"  onclick="location.href='{% url 'home' %}' "><u><center>Home</center></u></td>
-         <td bgcolor="#F3D849"><center>Profile</center></td>
-         <td onclick="location.href='{% url 'input' %}' "><u><center>Input</center></u></td>
-         <td onclick="location.href='{% url 'figures' %}' "><u><center>Figures</center></u></td>
-         <td onclick="location.href='{% url 'logs' %}' "><u><center>Logs</center></u></td>
-         <td onclick="location.href='{% url 'stats' %}' "><u><center>Stats</center></u></td>
+           <td height="37" onclick="location.href='{% url 'home' %}' "><u><center>Home</center></u></td>
+           <td onclick="location.href='{% url 'input' %}' "><u><center>Input</center></u></td>
+           <td bgcolor="#F3D849" onclick="location.href='{% url 'figures' %}' "><center>Figures</center></td>
+           <td onclick="location.href='{% url 'logs' %}' "><u><center>Logs</center></u></td>
+           <td onclick="location.href='{% url 'stats' %}' "><u><center>Stats</center></u></td>
        </center>
      </tr>
    </tbody>
  </table>
  <p>&nbsp;</p>
+     <h1 style="color: #F3D849">{{ name }} Graph</h1>
+<center>
+
+<!-->    GRAPH WILL GO HERE    <-->
+<script>
+</script>
+
+</center>
+
+
  </center>
  </html>
