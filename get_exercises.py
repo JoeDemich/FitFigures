@@ -8,7 +8,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 b = webdriver.Chrome(executable_path='C:\Selenium Drivers\chromedriver_win32\chromedriver.exe')
 
-#url = "https://www.bodybuilding.com/exercises/finder/?muscle=chest,forearms,lats,middle-back,lower-back,neck,quadriceps,hamstrings,calves,triceps,traps,shoulders,abdominals,glutes,biceps,adductors,abductors"
 url = "https://www.bodybuilding.com/exercises/finder/"
 b.get(url)
 b.maximize_window()

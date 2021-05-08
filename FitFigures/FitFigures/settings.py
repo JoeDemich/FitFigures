@@ -126,17 +126,9 @@ SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
-#STATICFILES_DIR = {
-   # os.path.join(BASE_DIR, ""),
-  #  os.path.join(BASE_DIR, 'static'),
- #   os.path.join(BASE_DIR, "FitFigures/static"),
-#}
-
 STATICFILES_DIR = (str(BASE_DIR.joinpath('static')))
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
 

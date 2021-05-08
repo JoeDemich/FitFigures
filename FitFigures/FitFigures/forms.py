@@ -38,28 +38,3 @@ class WeightForm(ModelForm):
     class Meta:
         model = Weights
         fields = ('Date', 'Weight')
-
-class UserDetailsForm(ModelForm):
-    class Meta:
-        model = UserDetails
-        fields = ('Name', 'DOB', 'Weight', 'Feet', 'Inches')
-
-class InterestsForm(ModelForm):
-    class Meta:
-        model = Interests
-        fields = ('General_Fitness', 'Weight_Loss', 'Strength_Training', 'Endurance',
-                  'Calisthenics', 'Athletics', 'Bodybuilding', 'Martial_Arts')
-
-class SelectedStatsForm(ModelForm):
-    class Meta:
-        model = SelectedStats
-        fields = ('Max_Bench_Press', 'Max_Deadlift', 'Max_Squat', 'Max_Overhead_Press',
-                  'Max_Pushups', 'Max_Pullups', 'Max_Dips', 'Max_Squats', 'Total_Weight_Used',
-                  'Total_Cardio_Distance', 'Total_Cardio_Time', 'Number_of_Workouts',
-                  'Average_Workouts_Per_Week', 'Longest_Workout_Streak', 'Longest_Rest_Streak',
-                  'Total_Weight_Change')
-   # date = forms.DateField()
-    #exercise = forms.CharField(max_length=67)
-    #set_interval = forms.IntegerField()
-    #reps = forms.IntegerField()
-    #weight = forms.CharField(label='user_weight', max_length=3)

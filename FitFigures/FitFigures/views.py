@@ -1,17 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect
-from django.forms import inlineformset_factory, modelformset_factory, formset_factory
+from django.shortcuts import render
+from django.forms import  formset_factory
 import pyrebase
-from .models import WorkoutDetails
 from .forms import *
 from .models import *
 import random
-from datetime import date
 import datetime
 from datetime import date
-import time
-import json
-import matplotlib.pyplot as plt
 
 config = {
     "apiKey": "AIzaSyCN1Bh-NxLYGllp-w51nqTMSsml6WiSFpU",
@@ -66,7 +60,7 @@ def postsignIn(request):
 
     global currentUID
     currentUID = user['localId']
-    print("Should be UID: " + currentUID + "\n")
+
 
     rand = random.randint(0, len(Quotes) - 1)
     context = {'quote': Quotes[rand],
@@ -166,16 +160,11 @@ def enterStrengthWorkout(request):
 
     if request.method == 'POST':
         formset = StrengthFormSet(request.POST)
-        print(authe.current_user['localId'])
         for form in formset:
             # Add UID from firebase to form
-            #form.UID = str(currentUID)
             form.instance.UID = authe.current_user['localId']
-            print("UID in strength form: " + str(form.instance.UID) + "\n")
-            print(form.errors)
             if form.is_valid():
                 if form.instance.Date != None and form.instance.Exercise != None and form.instance.Set != None and form.instance.Reps != None and form.instance.Weight != None:
-                    print("FORM IS VALID\n")
                     form.save()
                     return render(request, 'EntryComplete.html')
             else:
@@ -193,12 +182,8 @@ def enterCardioWorkout(request):
         formset = CardioFormSet(request.POST)
         for form in formset:
             form.instance.UID = authe.current_user['localId']
-            print("UID in cardio form: " + str(form.instance.UID) + "\n")
-            print(form.errors)
             if form.is_valid():
                 if form.instance.Date != None and form.instance.Exercise != None and form.instance.Interval != None and form.instance.Distance != None and form.instance.Time != None:
-                    print(form.instance.Time)
-                    print("\n")
                     form.save()
                     print("Form is valid\n")
                     return render(request, 'EntryComplete.html')
@@ -248,33 +233,13 @@ def viewDates(request):
 
 def viewWorkouts(request, workout_date):
     userUID = authe.current_user['localId']
-    print("Date: " + workout_date)
-    userWorkouts = WorkoutDetails.objects.filter(UID=userUID,Date=workout_date).order_by('Exercise', 'Set', 'Interval')#.order_by('Set').order_by('Interval')
+    userWorkouts = WorkoutDetails.objects.filter(UID=userUID,Date=workout_date).order_by('Exercise', 'Set', 'Interval')
     all_details = []
-   # print(userWorkouts)
 
-    print("These should show up")
-    print(userWorkouts)
     for workout in userWorkouts:
-        #print(workout.Exercise)
         if workout.Time != None:
             workout.Time = str(workout.Time)
-        print()
 
-        """ 
-        all_details.append({
-            'Maybe': "Maybe",
-            'Exercise': str(workout.Exercise),
-            'Set': str(workout.Set),
-            'Reps': str(workout.Reps),
-            'Weight': str(workout.Weight),
-            'Interval': str(workout.Interval),
-            'Time': str(workout.Time),
-            'Distance': str(workout.Distance)
-        })
-        all_details.append(workout)
-        """
-    #print(all_details)
     return render(request, "Workouts.html", {
        'date': str(workout_date),
        'userWorkouts': userWorkouts
@@ -282,17 +247,20 @@ def viewWorkouts(request, workout_date):
 
 def viewStats(request):
     userUID = authe.current_user['localId']
-    print("On stats page")
 
     # Total Weight Change & Current Weight
     userWeights = Weights.objects.filter(UID=userUID).order_by('-Date')
-    weights = []
-    for weight in userWeights:
-        weights.append(weight)
-    weightChange = (weights[0].Weight - weights[-1].Weight)
-    if weightChange > 0:
-        weightChange = "+" + str(weightChange)
-    currentWeight = weights[0].Weight
+    if len(userWeights) > 0:
+        weights = []
+        for weight in userWeights:
+            weights.append(weight)
+        weightChange = (weights[0].Weight - weights[-1].Weight)
+        if weightChange > 0:
+            weightChange = "+" + str(weightChange) + " lbs"
+        currentWeight = str(weights[0].Weight) + " lbs"
+    else:
+        currentWeight = "N/A"
+        weightChange = "N/A"
 
 
     # Number of Workouts
@@ -302,7 +270,6 @@ def viewStats(request):
     for workout in userWorkouts:
         if str(workout['Date']) not in dates:
             dates.append(str(workout['Date']))
-            print("THIS ORDER: " + str(workout['Date']))
             streakDates.append(workout['Date'])
     numberofworkouts = len(dates)
 
@@ -313,26 +280,21 @@ def viewStats(request):
     currentMissed = datetime.timedelta(0)
     longestMissed = datetime.timedelta(0)
     for Date in streakDates:
-        print("Count: " + str(count))
         if count != 0:
             if Date - prevDate == datetime.timedelta(1):
                 currentConsecutive = currentConsecutive + datetime.timedelta(1)
                 if currentConsecutive > longestConsecutive:
                     longestConsecutive = currentConsecutive
-                    print(longestConsecutive)
             else:
                 currentMissed = (Date - prevDate)
 
                 if currentMissed > longestMissed and currentMissed != -1:
                     longestMissed = currentMissed
                     longestMissed = longestMissed - datetime.timedelta(days=1)
-                    print("Rest Test: " + str(longestMissed.days))
         if count == len(dates):
             today = date.today()
             if (today - Date) > longestMissed:
                 longestMissed = today - Date
-
-                print(longestMissed)
         prevDate = Date
         count = count + 1
 
@@ -340,10 +302,8 @@ def viewStats(request):
     cardioWorkouts = WorkoutDetails.objects.filter(UID=userUID).values('Time', 'Distance')
     totalDistance = 0.0
     totalTime = datetime.timedelta(0)
-    print(cardioWorkouts)
     for workout in cardioWorkouts:
         if workout['Time'] != None:
-            print(workout['Time'])
             time = str(workout['Time'])
             hour = int(time[:2])
             min = int(time[3:5])
@@ -368,3 +328,62 @@ def viewStats(request):
                'totalWeight': totalWeight,
                'totalTime': totalTime}
     return render(request, "Stats.html", context)
+
+def ChooseExercise(request):
+    return render(request, "ChooseExercise.html")
+
+def viewExercises(request):
+    userUID = authe.current_user['localId']
+    workouts = WorkoutDetails.objects.filter(UID=userUID).values('Exercise').order_by('Exercise')
+    exercises = []
+    for workout in workouts:
+        if str(workout['Exercise']) not in exercises:
+            exercises.append(str(workout['Exercise']))
+    context = {'exercises': exercises}
+    return render(request, "ChooseExercise.html", context)
+
+def Graph(request):
+    return render(request, "Graph.html")
+
+def exerciseGraph(request, name):
+    userUID = authe.current_user['localId']
+    workouts = WorkoutDetails.objects.filter(UID=userUID, Exercise=name).values('Exercise', 'Date', 'Weight', 'Distance').order_by('Date')
+    for w in workouts:
+        if w['Weight'] != None:
+            print(str(w['Date']) + ": " + str(w['Exercise']) + " " + str(w['Weight']))
+
+        else:
+            print(str(w['Date']) + ": " + str(w['Exercise']) + " " + str(w['Distance']))
+
+    dates = []
+    maxes = []
+    for workout in workouts:
+        if workout['Date'] not in dates:
+            # Get max for that day
+            dates.append(workout['Date'])
+            currentMax = 0
+            attributes = WorkoutDetails.objects.filter(UID=userUID, Exercise=name, Date=workout['Date']).values('Weight', 'Distance')
+            for attr in attributes:
+                if attr['Weight'] != None:
+                    if attr['Weight'] > currentMax:
+                        currentMax = attr['Weight']
+                else:
+                    if attr['Distance'] > currentMax:
+                        currentMax = attr['Distance']
+            maxes.append(currentMax)
+
+    print(dates)
+    print(maxes)
+
+
+    context = {'name': name}
+    return render(request, "Graph.html", context)
+
+def WeightGraph(request):
+    return render(request, "WeightGraph.html")
+
+def viewWeightGraph(request):
+    userUID = authe.current_user['localId']
+    userWeights = Weights.objects.filter(UID=userUID).order_by('Date')
+    context = {'userWeights': userWeights}
+    return render(request, "WeightGraph.html", context)

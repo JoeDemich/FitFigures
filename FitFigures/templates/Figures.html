@@ -4,6 +4,9 @@ body {
 	background-color: #191718;
 	font-family: 'Poppins', sans-serif;
 }
+h1 {
+	color: #E0E5E9;
+}
 table {
     table-layout: fixed;
 }
@@ -33,5 +36,20 @@ table {
    </tbody>
  </table>
  <p>&nbsp;</p>
+<br>
+<br>
+
+<h1><center>Select an option:</center></h1>
+
+<table width="384" height="85">
+  <tbody>
+    <tr bgcolor="#E0E5E9">
+      <center>
+        <td width="186" onclick="location.href='{% url 'chooseexercise' %}' "><center>Choose An Exercise To Graph</center></u></td>
+        <td width="186" onclick="location.href='{% url 'weightgraph' %}' "><center>View Weight Graph</center></td>
+      </center>
+  </tbody>
+</table>
+
  </center>
  </html>
