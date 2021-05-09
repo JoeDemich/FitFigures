@@ -396,8 +396,6 @@ def viewWeightGraph(request):
     for i in userWeights:
         weights.append(i.Weight)
         dates.append(str(i.Date))
-        #weightdata.append({str(i.Date):int(i.Weight)})
-    #context = {'userWeights': userWeights}
 
     graph = plot([Scatter(x=dates, y=weights, mode='lines',
                           opacity=0.8, marker_color='rgba(10, 98, 208, 1)'),],
