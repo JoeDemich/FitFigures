@@ -6,6 +6,11 @@ from .models import *
 import random
 import datetime
 from datetime import date
+from django.http import JsonResponse
+import plotly
+from django.shortcuts import render
+from plotly.offline import plot
+from plotly.graph_objs import Scatter
 
 config = {
     "apiKey": "AIzaSyCN1Bh-NxLYGllp-w51nqTMSsml6WiSFpU",
@@ -360,7 +365,7 @@ def exerciseGraph(request, name):
     for workout in workouts:
         if workout['Date'] not in dates:
             # Get max for that day
-            dates.append(workout['Date'])
+            dates.append(str(workout['Date']))
             currentMax = 0
             attributes = WorkoutDetails.objects.filter(UID=userUID, Exercise=name, Date=workout['Date']).values('Weight', 'Distance')
             for attr in attributes:
@@ -372,12 +377,13 @@ def exerciseGraph(request, name):
                         currentMax = attr['Distance']
             maxes.append(currentMax)
 
-    print(dates)
-    print(maxes)
-
-
-    context = {'name': name}
+    graph = plot([Scatter(x=dates, y=maxes, mode='lines',
+                          opacity=0.8, marker_color='rgba(10, 98, 208, 1)'), ],
+                 output_type='div')
+    context = {'graph': graph,
+               'name': name}
     return render(request, "Graph.html", context)
+
 
 def WeightGraph(request):
     return render(request, "WeightGraph.html")
@@ -385,5 +391,14 @@ def WeightGraph(request):
 def viewWeightGraph(request):
     userUID = authe.current_user['localId']
     userWeights = Weights.objects.filter(UID=userUID).order_by('Date')
-    context = {'userWeights': userWeights}
+    weights = []
+    dates = []
+    for i in userWeights:
+        weights.append(i.Weight)
+        dates.append(str(i.Date))
+
+    graph = plot([Scatter(x=dates, y=weights, mode='lines',
+                          opacity=0.8, marker_color='rgba(10, 98, 208, 1)'),],
+                          output_type='div')
+    context = {'graph': graph}
     return render(request, "WeightGraph.html", context)

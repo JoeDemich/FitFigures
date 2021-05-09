@@ -53,7 +53,7 @@ urlpatterns = [
     path('ChooseExercises', views.ChooseExercise, name='chooseexercise'),
     path('viewExercises', views.viewExercises, name='chooseexercise'),
     path('Graph', views.Graph, name='graph'),
-    path('Graph/<str:name>', views.exerciseGraph, name='graph'),
-    path('Graph/Weight', views.WeightGraph, name='weightgraph'),
+    path('Graph/<str:name>/', views.exerciseGraph, name='graph'),
+    path('WeightGraph', views.WeightGraph, name='weightgraph'),
     path('viewWeightGraph', views.viewWeightGraph, name='weightgraph'),
 ]
