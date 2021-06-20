@@ -77,14 +77,7 @@ WSGI_APPLICATION = 'FitFigures.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pawjpuke',
-        'USER': 'pawjpuke',
-        'PASSWORD': 'HdV9eqBpR_Ds7UVsgKuCElfhAtPna4c6',
-        'HOST': 'queenie.db.elephantsql.com',
-        'PORT': '5432'
-
+        # this information has been redacted.
     }
 }
 
